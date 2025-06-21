@@ -1,6 +1,6 @@
 import { Recipe } from './recipe.modal';
 
-// מייצג קטגוריה (כמו "עוגות", "בשרי", "פסטות")
+// מייצג קטגוריה
 export interface Category {
   _id?: string;                 // מזהה אוטומטי של מונגו
   description: string;         // שם הקטגוריה

@@ -1,7 +1,7 @@
 import { Category } from './category.model';
 import { User } from './user.model';
 
-// מייצג שכבה במתכון (כמו בצקים שונים בעוגה)
+// מייצג שכבה במתכון
 export interface Layer {
     description: string;       // תיאור השכבה
     ingredients: string[];     // רשימת מרכיבים
@@ -23,7 +23,7 @@ export interface Recipe {
     createdBy: string | User;  // מזהה המשתמש שיצר או אובייקט מלא אם נעשה populate
 }
 
-// תוצאה של חיפוש מתכונים עם פאג'ינציה
+// Pagination תוצאה של חיפוש מתכונים עם 
 export interface RecipeSearchResponse {
     data: Recipe[];  // המתכונים שנמצאו
     total: number;   // סך הכל מתכונים תואמים
