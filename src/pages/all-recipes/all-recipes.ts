@@ -30,6 +30,7 @@ export class AllRecipesComponent {
 
   recipes: Recipe[] = [];
   categories: Category[] = [];
+  allFilteredRecipes: Recipe[] = [];
 
   search: string = '';
   selectedCategory: string = '';
@@ -59,29 +60,50 @@ export class AllRecipesComponent {
 
     this.isLoading = true;
 
-    // קריאה לשירות המתכונים עם החיפוש, עמוד ומגבלה
+    const isClientSideFiltering = this.selectedCategory || this.selectedMaxTime !== null;
+    const effectiveLimit = isClientSideFiltering ? 1000 : this.limit; // אם יש סינון, נשתמש ב-limit גבוה
+
+
+    // שליפה עם limit גבוה כדי לקבל את כל המתכונים אם אכן היו עוד פרמטרים לסינון
+    // אם אין סינון, נשתמש ב-limit הרגיל
     this.recipeService.getBySearch(
       this.search,
       this.page,
-      this.limit
+      effectiveLimit
     ).subscribe({
       next: (res) => {
         let filtered = res.data;
         console.log('מתכונים שהתקבלו:', filtered);
         // סינון לפי קטגוריה אם נבחרה
-        if (this.selectedCategory) {
-          filtered = filtered.filter(recipe =>
-            recipe.categories.some(category => category === this.selectedCategory)
-          );
+        if (isClientSideFiltering) {
+          if (this.selectedCategory) {
+            // אם נבחרה קטגוריה, נסנן את המתכונים לפי הקטגוריה
+
+            filtered = filtered.filter(recipe =>
+              recipe.categories.some(category => category === this.selectedCategory)
+            );
+          }
+
+          // סינון לפי זמן מקסימלי אם נבחר
+          if (this.selectedMaxTime !== null) {
+            filtered = filtered.filter(recipe => recipe.time <= this.selectedMaxTime!);
+          }
+          // שמירה של המתכונים המסוננים
+          this.allFilteredRecipes = filtered;
+          console.log('מתכונים לאחר סינון:', this.allFilteredRecipes);
+          // עדכון סך הכל מתכונים
+          this.total = filtered.length;
+          // עימוד ידני של כל המתכונים המסוננים
+          const start = (this.page - 1) * this.limit;
+          const end = start + this.limit;
+          const pagedRecipes = filtered.slice(start, end);
+
+          this.recipes.push(...pagedRecipes);
+        } else {
+          this.recipes.push(...filtered);
+          this.total = res.total;
         }
 
-        // סינון לפי זמן מקסימלי אם נבחר
-        if (this.selectedMaxTime !== null) {
-          filtered = filtered.filter(recipe => recipe.time <= this.selectedMaxTime!);
-        }
-        this.recipes.push(...filtered);
-        // עדכון סך הכל מתכונים
-        this.total = res.total;
         this.page++;
         // עדכון מצב טעינה
         this.isLoading = false;
@@ -102,6 +124,8 @@ export class AllRecipesComponent {
     this.page = 1;
     this.recipes = [];
     this.total = 0;
+    this.allFilteredRecipes = [];
+    // טען את המתכונים מחדש עם הסינון החדש
     this.loadRecipes();
   }
 }
