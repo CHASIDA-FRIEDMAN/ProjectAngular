@@ -1,0 +1,105 @@
+// -----------------------------
+// משתני צבעים - Sass
+// -----------------------------
+$color-background-light-red: #fcebeb;
+$color-primary-text: #333;
+$color-primary-button: #ccc;
+$color-secondary-button: #7b1fa2;
+$color-error: red;
+$font-hebrew: 'Noto Sans Hebrew', sans-serif;
+
+// -----------------------------
+// כלליים לדף המתכונים
+// -----------------------------
+:host {
+    font-family: $font-hebrew;
+    color: $color-primary-text;
+    direction: rtl;
+}
+
+mat-form-field,
+input,
+textarea,
+select {
+  font-family: 'Noto Sans Hebrew', sans-serif !important;
+}
+
+
+
+// -----------------------------
+// טופס סינון
+// -----------------------------
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+    align-items: flex-end; // מוסיף יישור לגובה תחתון אחיד
+    font-family: $font-hebrew;
+
+    mat-form-field {
+        width: 250px;
+        direction: rtl;
+        font-family: $font-hebrew;
+    }
+
+    button[type="submit"] {
+        height: 56px; // גובה זהה ל-mat-form-field
+        padding: 0 24px;
+        top: 0;
+        background-color: $color-primary-button;
+        color: $color-primary-text;
+        font-family: $font-hebrew;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        align-self: flex-end; // מיישר את הכפתור כמו שאר האלמנטים
+    }
+}
+
+
+// -----------------------------
+// רשימת המתכונים
+// -----------------------------
+.recipes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+    font-family: $font-hebrew;
+}
+
+// -----------------------------
+// אנימציית טעינה
+// -----------------------------
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    font-family: $font-hebrew;
+}
+
+// -----------------------------
+// הודעה כאשר אין תוצאות
+// -----------------------------
+.no-results {
+    text-align: center;
+    margin-top: 2rem;
+    color: gray;
+    font-family: $font-hebrew;
+    font-size: 1.1em;
+}
+
+// -----------------------------
+// כותרת ראשית
+// -----------------------------
+mat-card-title {
+    font-family: $font-hebrew;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: $color-primary-text;
+    margin: 2rem;
+    text-align: center;
+}
+

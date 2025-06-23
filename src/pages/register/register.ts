@@ -56,7 +56,16 @@ export class RegisterComponent {
         this.router.navigate(['/recipes']);
       },
       error: (err) => {
-        console.error('Registration error:', err);
+        if (err.status === 0) {
+          // שגיאת רשת, לדוגמה אם השרת לא זמין
+          this.errorMessage = 'שגיאת רשת, אנא נסה שוב מאוחר יותר';
+          return;
+        }
+        if( err.status === 409) {
+          // שגיאה של קונפליקט, לדוגמה אם המשתמש כבר קיים
+          this.errorMessage = 'משתמש עם כתובת דוא"ל זו כבר קיים';
+          return;
+        } else 
         // ההרשמה נכשלה, הצגת הודעת שגיאה
         this.errorMessage = err.error?.message || 'שגיאה בעת ההרשמה';
       }

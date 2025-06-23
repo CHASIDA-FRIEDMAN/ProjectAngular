@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../shared/services/auth.service';
 
 
 
@@ -29,7 +30,7 @@ export class LoginComponent {
 
   loginError = '';
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router,private authService: AuthService) { }
 
   onSubmit(form: any) {
     if (form.invalid) {
@@ -38,11 +39,20 @@ export class LoginComponent {
 
     this.userService.signin(this.loginData).subscribe({
       next: (res) => {
+        this.authService.setUser({
+          username: res.username,
+          token: res.token,
+        });
         // הכניסה הצליחה, ניווט לדף המתכונים
         this.loginError = '';
         this.router.navigate(['/recipes']);
       },
-      error: () => {
+      error: (err) => {
+        if( err.status === 0) {
+          // שגיאת רשת, לדוגמה אם השרת לא זמין
+          this.loginError = 'שגיאת רשת, אנא נסה שוב מאוחר יותר';
+          return;
+        }
         // הכניסה נכשלה, הצגת הודעת שגיאה
         this.loginError = 'שם משתמש או סיסמה שגויים';
       }
