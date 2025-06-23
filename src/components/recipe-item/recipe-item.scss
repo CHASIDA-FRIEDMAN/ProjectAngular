@@ -1,0 +1,29 @@
+
+
+.recipe-card {
+  max-width: 260px;
+  margin: 1rem;
+  border-radius: 16px;
+  overflow: hidden;
+
+  img {
+    height: 200px;
+    object-fit: cover;
+  }
+
+  h3 {
+    margin: 0.5rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .stars {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 2px;
+
+    mat-icon {
+      font-size: 20px;
+    }
+  }
+}
