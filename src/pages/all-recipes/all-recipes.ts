@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { RecipeItemComponent } from '../../components/recipe-item/recipe-item';
 import { RecipeService } from '../../shared/services/recipe.service';
 import { CategoryService } from '../../shared/services/category.service';
-import { Recipe } from '../../shared/models/recipe.modal';
+import { Recipe } from '../../shared/models/recipe.model';
 import { Category } from '../../shared/models/category.model';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
@@ -19,7 +20,7 @@ import { MatCardModule } from '@angular/material/card';
   standalone: true,
   imports: [RecipeItemComponent, MatProgressSpinnerModule,
     CommonModule, FormsModule, MatFormFieldModule, MatSelectModule,
-    MatInputModule, MatButtonModule, MatCardModule
+    MatInputModule, MatButtonModule, MatCardModule, RouterModule
   ],
   templateUrl: './all-recipes.html',
   styleUrl: './all-recipes.scss'
@@ -29,7 +30,7 @@ export class AllRecipesComponent {
   private categoryService = inject(CategoryService);
 
   recipes: Recipe[] = [];
-  categories: Category[] = [];
+  categories: any;//Category[] = [];
   allFilteredRecipes: Recipe[] = [];
 
   search: string = '';
@@ -41,16 +42,19 @@ export class AllRecipesComponent {
   total = 0;
   isLoading = false;
 
+
+
   ngOnInit() {
     this.loadCategories();
     this.loadRecipes();
   }
 
   loadCategories() {
-    this.categoryService.getAllCategories().subscribe({
-      next: (res) => this.categories = res,
-      error: (err) => console.error('Error loading categories:', err)
-    });
+    this.categories = this.categoryService.getAllCategories();
+    // .subscribe({
+    //   next: (res) => this.categories = res,
+    //   error: (err) => console.error('Error loading categories:', err)
+    // });
   }
 
   loadRecipes() {

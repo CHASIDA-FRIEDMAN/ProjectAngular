@@ -52,6 +52,10 @@ mat-form-field {
   }
 }
 
+mat-label{
+    font-family: $font-hebrew;
+}
+
 // הודעות שגיאה
 mat-error {
   color: $color-error;

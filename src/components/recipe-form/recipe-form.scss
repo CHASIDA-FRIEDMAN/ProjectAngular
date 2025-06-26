@@ -1,0 +1,64 @@
+$font-hebrew: 'Noto Sans Hebrew', sans-serif;
+
+mat-card-title {
+  font-weight: 700;
+  font-size: 1.5em;
+  margin: 30px;
+  font-family: $font-hebrew;
+  text-align: center;
+
+}
+
+.form-container {
+  max-width: 850px;
+  margin: 2rem auto;
+  display: block;
+  padding: 1rem;
+  font-family: $font-hebrew;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 2rem 0 0.5rem;
+}
+
+// שדות קלט
+mat-form-field {
+  direction: rtl;
+  width: 100%;
+  margin-bottom: 15px;
+  font-family: $font-hebrew;
+
+  .mat-mdc-form-field-label {
+    font-weight: 400;
+    text-align: right;
+    direction: rtl;
+    font-family: $font-hebrew;
+  }
+
+  input {
+    font-weight: 400;
+    font-family: $font-hebrew;
+  }
+}
+
+mat-label {
+  font-family: $font-hebrew !important;
+}
+
+button {
+  font-family: $font-hebrew !important;
+
+}
+
+.ins {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 30px 15px 10px 0;
+}

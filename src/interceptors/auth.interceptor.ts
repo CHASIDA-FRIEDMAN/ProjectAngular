@@ -8,6 +8,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
     // אם יש טוקן, נוסיף אותו לכותרת Authorization של הבקשה
     if (token) {
+        console.log('token:',token)
         const clonedReq = req.clone({
             setHeaders: {
                 Authorization: `Bearer ${token}` // הוספת הטוקן לכותרת Authorization

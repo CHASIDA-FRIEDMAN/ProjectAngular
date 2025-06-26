@@ -39,6 +39,8 @@ export class LoginComponent {
 
     this.userService.signin(this.loginData).subscribe({
       next: (res) => {
+            console.log('Response from signin:', res); // <--- הוסף את זה כאן!
+
         this.authService.setUser({
           username: res.username,
           token: res.token,

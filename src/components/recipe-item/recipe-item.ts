@@ -1,5 +1,5 @@
 import { Component,Input } from '@angular/core';
-import { Recipe } from '../../shared/models/recipe.modal';
+import { Recipe } from '../../shared/models/recipe.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import {NgIf,NgFor} from '@angular/common';

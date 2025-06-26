@@ -2,6 +2,8 @@
     <mat-card-title>כל המתכונים💕</mat-card-title>
 
     <mat-card-content>
+            <button mat-raised-button color="primary" [routerLink]="['/add']">הוסף מתכון</button>
+
         <!-- טופס סינון -->
         <form class="filters" (ngSubmit)="onFilterChange()">
             <mat-form-field appearance="outline">
@@ -13,7 +15,7 @@
                 <mat-label>בחר קטגוריה</mat-label>
                 <mat-select [(ngModel)]="selectedCategory" name="selectedCategory">
                     <mat-option value="">כל הקטגוריות</mat-option>
-                    <mat-option *ngFor="let category of categories" [value]="category._id">
+                    <mat-option *ngFor="let category of categories | async" [value]="category._id">
                         {{ category.description }}
                     </mat-option>
                 </mat-select>
@@ -25,15 +27,17 @@
             </mat-form-field>
 
             <button mat-raised-button color="primary" type="submit">סנן</button>
+
+
         </form>
 
         <!-- רשימת המתכונים -->
         <div class="recipe-list">
-            <app-recipe-item
-            *ngFor="let recipe of recipes"
-            [recipe]="recipe"
-            ></app-recipe-item>
+            @for (recipe of recipes; track recipe._id) {
+            <app-recipe-item [recipe]="recipe"></app-recipe-item>
+            }
         </div>
+
 
         <!-- אנימציית טעינה -->
         <div class="spinner-container" *ngIf="isLoading">

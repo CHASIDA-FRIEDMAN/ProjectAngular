@@ -1,4 +1,4 @@
-import { Recipe } from './recipe.modal';
+import { Recipe } from './recipe.model';
 
 // מייצג קטגוריה
 export interface Category {

@@ -19,7 +19,7 @@ export interface Recipe {
     layers: Layer[];           // שכבות (למשל: עוגת שכבות)
     instructions: string[];    // הוראות הכנה
     img?: string;              // קישור לתמונה
-    isprivate: boolean;        // האם המתכון פרטי
+    isPrivate: boolean;        // האם המתכון פרטי
     createdBy: string | User;  // מזהה המשתמש שיצר או אובייקט מלא אם נעשה populate
 }
 

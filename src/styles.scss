@@ -1,6 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@100..900&display=swap');
-
-html, body { height: 100%;   font-family: 'Noto Sans Hebrew', sans-serif;
+$font-hebrew: 'Noto Sans Hebrew', sans-serif;
+html, body { height: 100%;   font-family: 'Noto Sans Hebrew', sans-serif !important;
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-mdc-checkbox-label{
+    font-family: 'Noto Sans Hebrow',sans-serif !important;
+}
+
+:root {
+  --mat-sys-body-medium-font: $font-hebrew;
+  --mat-checkbox-label-text-font: $font-hebrew;
+  --mat-option-label-text-font: $font-hebrew;
+  --mat-select-trigger-text-font:$font-hebrew;
+
+}
