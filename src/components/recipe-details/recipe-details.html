@@ -1,0 +1,57 @@
+<mat-card *ngIf="recipe" class="recipe-details-card">
+    <mat-card-header>
+        <mat-card-title>{{ recipe.name }}</mat-card-title>
+        <mat-card-subtitle>{{ recipe.description }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <img *ngIf="recipe.img" mat-card-image [src]="recipe.img" alt="{{ recipe.name }}">
+
+    <mat-card-content>
+        <p><strong>קטגוריות:</strong> {{categoriesNames }}</p>
+        <p><strong>זמן הכנה:</strong> {{ recipe.time }} דקות</p>
+        <p><strong>דרגת קושי:</strong> </p>
+        <div>
+            <mat-icon *ngFor="let filled of getDifficulityArray()" color="primary">
+                {{ filled ? 'star' : 'star_border' }}
+            </mat-icon>
+        </div>
+
+        <p><strong>המצרכים:</strong></p>
+
+        <div *ngFor="let layer of recipe.layers">
+            <h4>ל{{ layer.description }}:</h4>
+            <ul>
+                <li *ngFor="let ing of layer.ingredients">
+                    - {{ ing }}
+                </li>
+            </ul>
+        </div>
+
+        <h3>אופן ההכנה:</h3>
+        <ol>
+            <li *ngFor="let step of recipe.instructions">{{ step }}</li>
+        </ol>
+
+        <h2>בתאבון! 😋</h2>
+
+    </mat-card-content>
+
+    <mat-card-actions *ngIf="isOwner()">
+        <button mat-raised-button color="warn" (click)="deleteRecipe(confirmDialog)">
+            <mat-icon>delete</mat-icon>
+            מחק מתכון</button>
+    </mat-card-actions>
+</mat-card>
+
+
+<!-- למחיקה -->
+<ng-template #confirmDialog>
+    <h2 mat-dialog-title>אישור מחיקה</h2>
+    <mat-dialog-content>
+        <p>האם אתה בטוח שאתה רוצה למחוק את המתכון?</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button (click)="dialog.closeAll()">ביטול</button>
+        <button mat-raised-button color="warn" (click)="onConfirmDelete()">מחק</button>
+    </mat-dialog-actions>
+</ng-template>

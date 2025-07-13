@@ -2,14 +2,15 @@
     <mat-card-title>כל המתכונים💕</mat-card-title>
 
     <mat-card-content>
-            <button mat-raised-button color="primary" [routerLink]="['/add']">הוסף מתכון</button>
 
         <!-- טופס סינון -->
         <form class="filters" (ngSubmit)="onFilterChange()">
             <mat-form-field appearance="outline">
                 <mat-label>חפש לפי שם</mat-label>
-                <input matInput [(ngModel)]="search" name="search" />
+                <input matInput [(ngModel)]="search" name="search">
+
             </mat-form-field>
+
 
             <mat-form-field appearance="outline">
                 <mat-label>בחר קטגוריה</mat-label>
@@ -26,7 +27,12 @@
                 <input matInput type="number" [(ngModel)]="selectedMaxTime" name="selectedMaxTime" />
             </mat-form-field>
 
-            <button mat-raised-button color="primary" type="submit">סנן</button>
+            <button mat-raised-button color="primary" type="submit" class="filter-button">
+                <mat-icon>search</mat-icon>
+                סנן
+            </button>
+
+
 
 
         </form>

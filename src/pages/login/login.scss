@@ -19,7 +19,6 @@ mat-card {
   background-color: $color-background-light-red;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  font-family: $font-hebrew;
 }
 
 // כותרת הכרטיס
@@ -28,7 +27,6 @@ mat-card-title {
   font-weight: 700;
   font-size: 1.5em;
   margin: 30px;
-  font-family: $font-hebrew;
 }
 
 // שדות קלט
@@ -36,25 +34,19 @@ mat-form-field {
   direction: rtl;
   width: 100%;
   margin-bottom: 15px;
-  font-family: $font-hebrew;
 
   .mat-mdc-form-field-label {
     font-weight: 400;
     text-align: right;
     direction: rtl;
-    font-family: $font-hebrew;
   }
 
   input {
     font-weight: 400;
     text-align: left !important;
-    font-family: $font-hebrew;
   }
 }
 
-mat-label{
-    font-family: $font-hebrew;
-}
 
 // הודעות שגיאה
 mat-error {
@@ -65,7 +57,6 @@ mat-error {
   text-align: right;
   display: block;
   direction: rtl;
-  font-family: $font-hebrew;
 }
 
 // כפתורים כלליים
@@ -73,7 +64,6 @@ button {
   margin: 10px 5px;
   padding: 8px 20px;
   font-size: 1em;
-  font-family: $font-hebrew;
 }
 
 // כפתור התחברות
@@ -81,14 +71,12 @@ button[type="submit"] {
   background-color: $color-primary-button;
   color: $color-primary-text;
   border-radius: 5px;
-  font-family: $font-hebrew;
 }
 
 // כפתור הרשמה
 button[type="button"] {
   color: $color-secondary-button;
   background-color: transparent;
-  font-family: $font-hebrew;
 }
 
 // הודעת שגיאה כללית
@@ -96,5 +84,4 @@ button[type="button"] {
   color: $color-error;
   margin-top: 15px;
   font-size: 0.9em;
-  font-family: $font-hebrew;
 }

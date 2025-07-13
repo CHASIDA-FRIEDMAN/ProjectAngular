@@ -12,26 +12,12 @@ $font-hebrew: 'Noto Sans Hebrew', sans-serif;
 // כלליים לדף המתכונים
 // -----------------------------
 :host {
-    font-family: $font-hebrew;
+    background-color: $color-background-light-red;
+
     color: $color-primary-text;
     direction: rtl;
-    
+
 }
-
-mat-label{
-    font-family: $font-hebrew;
-}
-
-
-
-mat-form-field,
-input,
-textarea,
-select {
-  font-family: 'Noto Sans Hebrew', sans-serif !important;
-}
-
-
 
 // -----------------------------
 // טופס סינון
@@ -42,13 +28,10 @@ select {
     gap: 1rem;
     margin-bottom: 2rem;
     justify-content: center;
-    align-items: flex-end; // מוסיף יישור לגובה תחתון אחיד
-    font-family: $font-hebrew;
 
     mat-form-field {
         width: 250px;
         direction: rtl;
-        font-family: $font-hebrew;
     }
 
     button[type="submit"] {
@@ -57,11 +40,9 @@ select {
         top: 0;
         background-color: $color-primary-button;
         color: $color-primary-text;
-        font-family: $font-hebrew;
         border-radius: 5px;
         border: none;
         cursor: pointer;
-        align-self: flex-end; // מיישר את הכפתור כמו שאר האלמנטים
     }
 }
 
@@ -76,7 +57,6 @@ select {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     // gap: 1.5rem;
     // padding: 1rem;
-    font-family: $font-hebrew;
 }
 
 
@@ -88,7 +68,6 @@ select {
     display: flex;
     justify-content: center;
     margin: 2rem 0;
-    font-family: $font-hebrew;
 }
 
 // -----------------------------
@@ -98,15 +77,31 @@ select {
     text-align: center;
     margin-top: 2rem;
     color: gray;
-    font-family: $font-hebrew;
     font-size: 1.1em;
+    height: 100%;
 }
+
+mat-card {
+    height: 100%;
+
+}
+
+:host {
+    min-height: 100vh; // גובה מינימלי כל המסך
+    display: flex;
+    flex-direction: column;
+}
+
+
+.search-icon {
+    margin-left: 8px; // או כמה פיקסלים שתרצי
+}
+
 
 // -----------------------------
 // כותרת ראשית
 // -----------------------------
 mat-card-title {
-    font-family: $font-hebrew;
     font-size: 1.8em;
     font-weight: 700;
     color: $color-primary-text;
@@ -114,10 +109,7 @@ mat-card-title {
     text-align: center;
 }
 
-button{
-        font-family: $font-hebrew;
-
+.filter-button {
+  gap: 4px; // מרווח קטן בין האייקון לטקסט
+  font-weight: 600; // אם רוצים להדגיש קצת
 }
-
-
-

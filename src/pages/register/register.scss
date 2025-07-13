@@ -21,7 +21,6 @@ mat-card {
   background-color: $color-background;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
-  font-family: $font-hebrew;
 }
 
 // כותרת
@@ -30,7 +29,6 @@ mat-card-title {
   font-weight: 700;
   font-size: 1.6em;
   margin: 30px;
-  font-family: $font-hebrew;
 }
 
 // שדות קלט
@@ -38,20 +36,17 @@ mat-form-field {
   direction: rtl;
   width: 100%;
   margin-bottom: 18px;
-  font-family: $font-hebrew;
 
   .mat-mdc-form-field-label {
     font-weight: 400;
     text-align: right;
     direction: rtl;
-    font-family: $font-hebrew;
   }
 
   input {
     font-weight: 400;
     text-align: right !important;
     direction: rtl;
-    font-family: $font-hebrew;
   }
 
   input[type="email"],
@@ -69,7 +64,6 @@ mat-error {
   text-align: right;
   direction: rtl;
   display: block;
-  font-family: $font-hebrew;
 }
 
 // כפתור הרשמה
@@ -80,7 +74,6 @@ button[type="submit"] {
   border-radius: 5px;
   padding: 8px 20px;
   font-size: 1em;
-  font-family: $font-hebrew;
 
   &:disabled {
     background-color: $color-primary-light;
@@ -93,9 +86,4 @@ button[type="submit"] {
   color: $color-error-dark;
   margin-top: 15px;
   font-size: 0.9em;
-  font-family: $font-hebrew;
-}
-
-mat-label{
-    font-family: $font-hebrew;
 }

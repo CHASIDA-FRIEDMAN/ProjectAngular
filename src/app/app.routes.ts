@@ -3,6 +3,8 @@ import { LoginComponent } from '../pages/login/login';
 import { RegisterComponent } from '../pages/register/register';
 import { AllRecipesComponent } from '../pages/all-recipes/all-recipes';
 import { RecipeFormComponent } from '../components/recipe-form/recipe-form';
+import { RecipeDetailsComponent } from '../components/recipe-details/recipe-details';
+// import { NavbarComponent } from '../components/navbar/navbar';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'recipes', pathMatch: 'full' },
@@ -10,5 +12,10 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'recipes', component: AllRecipesComponent },
     { path: 'add', component: RecipeFormComponent },
-    { path: 'update/:id', component: RecipeFormComponent }
+    { path: 'add/:id', component: RecipeFormComponent },
+    { path: 'update/:id', component: RecipeFormComponent },
+    { path: 'recipes/:id', component: RecipeDetailsComponent },
+    // { path: 'navbar', component: NavbarComponent },
+
+
 ];

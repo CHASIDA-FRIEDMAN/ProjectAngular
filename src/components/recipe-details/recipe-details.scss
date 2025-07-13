@@ -1,0 +1,76 @@
+$font-hebrew: 'Noto Sans Hebrew', sans-serif;
+
+.recipe-details-card {
+  font-family: $font-hebrew;
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+  mat-card-title {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  mat-card-subtitle {
+    font-weight: 400;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #666;
+  }
+
+  img {
+    border-radius: 8px;
+    margin: 1rem 0;
+    max-height: 400px;
+    object-fit: cover;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+  }
+
+
+  h4 {
+    font-weight: 600;
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
+
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  ol {
+    padding-left: 1.2rem;
+    li {
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+
+    button {
+      font-weight: 600;
+    }
+  }
+}

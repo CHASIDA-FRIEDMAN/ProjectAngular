@@ -1,22 +1,36 @@
 import { inject } from "@angular/core";
-import { HttpInterceptorFn } from "@angular/common/http";
+import { HttpErrorResponse, HttpInterceptorFn } from "@angular/common/http";
 import { AuthService } from "../shared/services/auth.service";
+import { Router } from "@angular/router";
+import { catchError, throwError } from "rxjs";
+import { error } from "console";
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const authService = inject(AuthService); //inject במקום בנאי שימוש ב 
     const token = authService.getToken(); // אם קיים הטוקן, הוא יוחזר כאן
+    const router = inject(Router);
+
+    let clonedReq = req;
 
     // אם יש טוקן, נוסיף אותו לכותרת Authorization של הבקשה
     if (token) {
-        console.log('token:',token)
-        const clonedReq = req.clone({
+        console.log('token:', token)
+        clonedReq = req.clone({
             setHeaders: {
                 Authorization: `Bearer ${token}` // הוספת הטוקן לכותרת Authorization
             }
         });
-        return next(clonedReq); // שולח את הבקשה עם הטוקן
     }
-
+    return next(clonedReq).pipe(// שולח את הבקשה עם הטוקן
+        catchError((error: HttpErrorResponse) => {
+            if (error.status === 401) {
+                // במידה והטוקן לא תקף או פג תוקף
+                console.log('Token expired or unauthorized, logging out...')
+                authService.logout() // מנקה את ה localStorage
+                router.navigate(['/login'], { queryParams: { expired: 'true' } });
+            }
+            return throwError(() => error)
+        })
+    )
     // אם אין טוקן, נמשיך עם הבקשה המקורית
-    return next(req);
 }

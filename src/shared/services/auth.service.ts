@@ -1,33 +1,30 @@
-// ניהול הרשאות
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
 
-// מסמן את השירות כזמין לשימוש בכל האפליקציה
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly storageKey = 'user';
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+  private userSubject = new BehaviorSubject<{ username: string; userId: string; token: string } | null>(this.getUser());
+  user$ = this.userSubject.asObservable();
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   private isBrowser(): boolean {
     return isPlatformBrowser(this.platformId);
   }
 
-  // json שמירת משתמש כמחרוזת 
-  // localStorage או sessionStorage (אם מעדיפים) ב
-  setUser(user: { username: string; token: string }) {
+  setUser(user: { username: string; userId: string; token: string }) {
     if (this.isBrowser()) {
       localStorage.setItem(this.storageKey, JSON.stringify(user));
     }
+    this.userSubject.next(user);
   }
 
-  // קבלת משתמש
-  getUser(): { username: string; token: string } | null {
+  getUser(): { username: string; userId: string; token: string } | null {
     if (!this.isBrowser()) {
       return null;
     }
@@ -35,20 +32,31 @@ export class AuthService {
     return userJson ? JSON.parse(userJson) : null;
   }
 
-  // קבלת הטוקן של המשתמש
   getToken(): string | null {
     return this.getUser()?.token || null;
   }
 
-  // בדיקת האם המשתמש מחובר
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    return !!this.getUser() && !this.isTokenExpired();
   }
 
-  // יציאה מהמערכת - מחיקת המשתמש מהאחסון
   logout() {
     if (this.isBrowser()) {
       localStorage.removeItem(this.storageKey);
+    }
+    this.userSubject.next(null);
+  }
+
+  isTokenExpired(): boolean {
+    const user = this.getUser();
+    if (!user?.token) return true;
+
+    try {
+      const payload = JSON.parse(atob(user.token.split('.')[1]));
+      const exp = payload.exp;
+      return Math.floor(Date.now() / 1000) >= exp;
+    } catch (e) {
+      return true;
     }
   }
 }

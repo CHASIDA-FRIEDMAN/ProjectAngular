@@ -12,5 +12,6 @@ export interface User {
 // תשובה מהשרת בזמן התחברות או הרשמה
 export interface AuthResponse {
     username: string; // שם המשתמש המחובר
+    userId: string;
     token: string;    // טוקן לצורך אימות (JWT)
 }

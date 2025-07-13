@@ -13,12 +13,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
   selector: 'app-all-recipes',
   standalone: true,
   imports: [RecipeItemComponent, MatProgressSpinnerModule,
+    MatIconModule,
     CommonModule, FormsModule, MatFormFieldModule, MatSelectModule,
     MatInputModule, MatButtonModule, MatCardModule, RouterModule
   ],

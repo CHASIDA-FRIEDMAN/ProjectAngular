@@ -27,3 +27,17 @@
     }
   }
 }
+
+.recipe-time{
+    display: flex;
+    gap: 10px; // מרווח קטן בין האייקון לטקסט
+    color: gray;
+    font-size: 1rem;
+
+    mat-icon {
+      font-size: 21px;
+    }
+}
+.stars{
+  color: rgb(139, 38, 75) !important;
+}

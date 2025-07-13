@@ -43,6 +43,7 @@ export class LoginComponent {
 
         this.authService.setUser({
           username: res.username,
+          userId: res.userId,
           token: res.token,
         });
         // הכניסה הצליחה, ניווט לדף המתכונים

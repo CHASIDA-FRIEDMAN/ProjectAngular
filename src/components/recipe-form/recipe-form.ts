@@ -61,12 +61,12 @@ export class RecipeFormComponent implements OnInit {
     this.form = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      categories: [[]],
+      categories: [[], Validators.required],
       time: [null, [Validators.required, Validators.min(1)]],
       level: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
       layers: this.fb.array([]),
       instructions: this.fb.array([]),
-      img: [''],
+      img: ['', [Validators.required, Validators.pattern(/^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i)]],
       isPrivate: [false]
 
     });
@@ -101,7 +101,7 @@ export class RecipeFormComponent implements OnInit {
 
     // הוראות
     this.instructions.clear();
-    recipe.instructions.forEach(i => this.instructions.push(this.fb.control(i, Validators.required)));
+    recipe.instructions.forEach(i => this.instructions.push(this.fb.control(i)));
     // נוסיף תיבה ריקה רק אם האחרונה מלאה
     const lastInstruction = this.instructions.at(this.instructions.length - 1)
     if (!lastInstruction || lastInstruction.value.trim()) {
@@ -118,7 +118,16 @@ export class RecipeFormComponent implements OnInit {
       });
       this.layers.push(group);
     });
-    this.addLayer(); // מוסיפים שכבה נוספת כדי לאפשר הוספת שכבה חדשה
+    // מוסיפים שכבה ריקה נוספת רק אם האחרונה מלאה (ולא ריקה לגמרי)
+    const lastLayer = this.layers.at(this.layers.length - 1);
+    if (
+      lastLayer &&
+      lastLayer.get('description')?.value.trim() &&
+      (lastLayer.get('ingredients') as FormArray).controls.some(c => c.value.trim())
+    ) {
+      this.addLayer();
+    }
+    // מוסיפים שכבה נוספת כדי לאפשר הוספת שכבה חדשה
   }
 
   get instructions() {
@@ -137,7 +146,7 @@ export class RecipeFormComponent implements OnInit {
   private addInstruction() {
     const last = this.instructions.at(this.instructions.length - 1);
     if (!last || last.value.trim()) {
-      this.instructions.push(this.fb.control('', Validators.required));
+      this.instructions.push(this.fb.control(''));
     }
   }
 
@@ -156,13 +165,6 @@ export class RecipeFormComponent implements OnInit {
     }
   }
 
-
-  removeInstruction(index: number) {
-    if (this.instructions.length > 1) {
-      this.instructions.removeAt(index);
-    }
-  }
-
   addLayer() {
     const group = this.fb.group({
       description: ['', Validators.required],
@@ -175,19 +177,26 @@ export class RecipeFormComponent implements OnInit {
     this.layers.removeAt(index);
   }
 
-
-  addIngredient(layerIndex: number) {
+  private addIngredient(layerIndex: number) {
     const ingredients = this.getIngredients(layerIndex);
     const last = ingredients.at(ingredients.length - 1);
     if (!last || last.value.trim()) {
-      ingredients.push(this.fb.control('', Validators.required));
+      ingredients.push(this.fb.control(''));
     }
   }
 
+  onIngredientChange(layerIndex: number, ingIndex: number) {
+    const ingredients = this.getIngredients(layerIndex);
+    const current = ingredients.at(ingIndex);
+    const next = ingredients.at(ingIndex + 1);
 
-  removeIngredient(layerIndex: number, ingredientIndex: number) {
-    const ingredients = (this.layers.at(layerIndex).get('ingredients') as FormArray);
-    ingredients.removeAt(ingredientIndex);
+    if (current.value.trim() && !next) {
+      ingredients.push(this.fb.control(''));
+    }
+
+    if (!current.value.trim() && next && !next.value.trim()) {
+      ingredients.removeAt(ingIndex + 1);
+    }
   }
 
   private loadCategories() {
@@ -235,7 +244,7 @@ export class RecipeFormComponent implements OnInit {
     obs.subscribe({
       next: () => {
         this.snackBar.open(
-          this.isEditMode ? 'המתכון נוסף בהצלחה' : 'המתכון עודכן בהצלחה',
+          this.isEditMode ? 'המתכון עודכן בהצלחה' : 'המתכון נוסף בהצלחה',
           'סגור',
           { duration: 3000 }
         );
