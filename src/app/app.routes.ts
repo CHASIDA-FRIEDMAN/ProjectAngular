@@ -12,8 +12,8 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'recipes', component: AllRecipesComponent },
     { path: 'add', component: RecipeFormComponent },
-    { path: 'add/:id', component: RecipeFormComponent },
-    { path: 'update/:id', component: RecipeFormComponent },
+    // { path: 'add/:id', component: RecipeFormComponent },
+    // { path: 'update/:id', component: RecipeFormComponent },
     { path: 'recipes/:id', component: RecipeDetailsComponent },
     // { path: 'navbar', component: NavbarComponent },
 

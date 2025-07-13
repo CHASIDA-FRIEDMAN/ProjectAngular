@@ -9,6 +9,8 @@ import { Category } from "../models/category.model";
 
 export class CategoryService {
     private apiUrl = 'http://localhost:3000/categories';
+    // private apiUrl = 'https://empowering-reverence-project.up.railway.app/categories';
+
 
     constructor(private http: HttpClient) { }
 

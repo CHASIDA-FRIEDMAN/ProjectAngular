@@ -9,6 +9,7 @@ import { Recipe } from "../models/recipe.model";
 
 export class RecipeService {
     private apiUrl = 'http://localhost:3000/recipes';
+    // private apiUrl = 'https://empowering-reverence-project.up.railway.app/recipes';
 
     constructor(private http: HttpClient) { }
 

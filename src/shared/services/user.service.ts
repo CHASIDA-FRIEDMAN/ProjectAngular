@@ -10,6 +10,8 @@ import { userInfo } from "os";
 
 export class UserService {
     private apiUrl = 'http://localhost:3000/users';
+    // private apiUrl = 'https://empowering-reverence-project.up.railway.app/users';
+
 
     constructor(private http: HttpClient) { }
 
